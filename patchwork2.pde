@@ -5,10 +5,10 @@ import java.util.*;
 
 // --------------------------------------------------
 boolean bExportSVG = false;
-int sqDim = 25;
+int sqDim = 32;
 int xDim = 796;
 int yDim = 576;
-int spaceDim = 10;
+int spaceDim = 8;
 
 int xStart = 0;
 int yStart = 0;
@@ -18,7 +18,7 @@ int yNum = 0;
 int patches = 8;
 int patchElements = 3;
 
-float maxSlop = 0.6;   //percentage amount of sqDim that will slop
+float maxSlop = 0.4;   //percentage amount of sqDim that will slop
 // --------------------------------------------------
 void setup()
 {
@@ -134,7 +134,7 @@ void drawPatch(int p)
       circle(sqDim/2 + slop(), sqDim/2 + slop(), sqDim/2);
       break;
     case 4:
-      int ts = abs(slop());
+      int ts = int (1.5 * abs(slop()));
       //triangle(0, sqDim, sqDim/2, 0, sqDim, sqDim);
       triangle(ts, sqDim, sqDim/2, ts, sqDim - ts, sqDim);
       break;
