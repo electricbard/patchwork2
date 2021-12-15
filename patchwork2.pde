@@ -16,8 +16,9 @@ int xNum = 0;
 int yNum = 0;
 
 int patches = 8;
-int patchElements = 1;
+int patchElements = 3;
 
+float maxSlop = 0.6;   //percentage amount of sqDim that will slop
 // --------------------------------------------------
 void setup()
 {
@@ -67,6 +68,7 @@ void draw()
       push();
       translate((xStart + i*(sqDim + spaceDim)), (yStart + j*(sqDim + spaceDim)));
       square(0,0,sqDim);
+      //square(0 + slop(),0 + slop(),sqDim);
       for(int k = 0; k < patchElements; k++) {
         drawPatch(int(random(patches)));
       }
@@ -101,23 +103,40 @@ String timestamp()
   return String.format("%1$ty%1$tm%1$td_%1$tH%1$tM%1$tS", now);
 }
 
+int slop()
+{
+  float s = sqDim * maxSlop;
+  return int(random(-s/2, s/2));
+}
+
+int tSlop()
+{
+  return int(slop() / 4);
+}
+
 void drawPatch(int p)
 {
   switch(p) {
     case 0:
-      line(sqDim/2, 0, sqDim/2, sqDim);
+      //line(sqDim/2, 0, sqDim/2, sqDim);
+      line(sqDim/2 + slop(), 0, sqDim/2 + slop(), sqDim);
       break;
     case 1:
-      line(sqDim/4, 0, sqDim/4, sqDim);
+      //line(sqDim/4, 0, sqDim/4, sqDim);
+      line(sqDim/4 + slop(), 0, sqDim/4 + slop(), sqDim);
       break;
     case 2:
-      line(sqDim/8, 0, sqDim/8, sqDim);
+      //line(sqDim/8, 0, sqDim/8, sqDim);
+      line(sqDim/8 + tSlop(), 0, sqDim/8 + tSlop(), sqDim);
       break;
     case 3:
-      circle(sqDim/2, sqDim/2, sqDim/2);
+      //circle(sqDim/2, sqDim/2, sqDim/2);
+      circle(sqDim/2 + slop(), sqDim/2 + slop(), sqDim/2);
       break;
     case 4:
-      triangle(0, sqDim, sqDim/2, 0, sqDim, sqDim);
+      int ts = abs(slop());
+      //triangle(0, sqDim, sqDim/2, 0, sqDim, sqDim);
+      triangle(ts, sqDim, sqDim/2, ts, sqDim - ts, sqDim);
       break;
      case 5:
       triangle(0, 0, sqDim/2, sqDim, sqDim, 0);
